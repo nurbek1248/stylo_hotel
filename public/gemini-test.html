@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            min-height: 100px;
+        }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Gemini API Test</h1>
+        <p>Bu sahifa Gemini API ni test qilish uchun yaratilgan.</p>
+        
+        <button onclick="testAPI()">API ni Test Qilish</button>
+        <button onclick="clearResults()">Natijalarni Tozalash</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p class="info">⏳ Test bajarilmoqda...</p>';
+            
+            const API_KEY = 'AIzaSyC_fWA3a89mp1QE6v_nKzRAOiO1UMKIqDI';
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+            
+            const requestBody = {
+                contents: [{
+                    parts: [{
+                        text: "Salom, kim sensan? Qisqacha javob bering."
+                    }]
+                }]
+            };
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    const answer = data.candidates?.[0]?.content?.parts?.[0]?.text || "Javob topilmadi";
+                    resultDiv.innerHTML = `
+                        <p class="success">✅ API muvaffaqiyatli ishladi!</p>
+                        <p><strong>Status:</strong> ${response.status}</p>
+                        <p><strong>Javob:</strong> ${answer}</p>
+                        <p><strong>To'liq ma'lumot:</strong></p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <p class="error">❌ API xatosi</p>
+                        <p><strong>Status:</strong> ${response.status}</p>
+                        <p><strong>Xato:</strong> ${data.error?.message || 'Noma\'lum xato'}</p>
+                        <p><strong>Kod:</strong> ${data.error?.code || 'N/A'}</p>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">🌐 Network xatosi</p>
+                    <p><strong>Xabar:</strong> ${error.message}</p>
+                `;
+            }
+        }
+        
+        function clearResults() {
+            document.getElementById('result').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

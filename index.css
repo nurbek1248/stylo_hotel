@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 220 20% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 10%;
+    --primary: 220 20% 10%;
+    --primary-foreground: 40 20% 96%;
+    --secondary: 40 10% 94%;
+    --secondary-foreground: 220 20% 10%;
+    --muted: 40 10% 92%;
+    --muted-foreground: 220 15% 30%;
+    --accent: 30 30% 45%; /* Elegant Bronze */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 20% 75%; /* Bronze border */
+    --input: 30 20% 75%; /* Bronze input border */
+    --ring: 30 30% 45%; /* Bronze ring */
+    --radius: 0.75rem;
+
+    --glass-bg: 0 0% 100% / 0.4;
+    --glass-border: 0 0% 100% / 0.3;
+    --glass-shadow: 220 20% 10% / 0.05;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 0 0% 0%; /* Mutlaq qora */
+    --foreground: 0 0% 100%; /* Oq matn */
+    --card: 220 20% 8%;
+    --card-foreground: 40 20% 96%;
+    --popover: 220 20% 8%;
+    --popover-foreground: 40 20% 96%;
+    --primary: 40 20% 96%;
+    --primary-foreground: 220 20% 10%;
+    --secondary: 220 15% 14%;
+    --secondary-foreground: 40 20% 96%;
+    --muted: 220 15% 14%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 30 35% 50%; /* Dark Bronze */
+    --accent-foreground: 220 20% 5%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 25% 30%; /* Dark bronze border */
+    --input: 30 25% 30%; /* Dark bronze input border */
+    --ring: 30 35% 50%; /* Dark Bronze ring */
+
+    --glass-bg: 220 20% 5% / 0.3;
+    --glass-border: 220 15% 30% / 0.2;
+    --glass-shadow: 0 0% 0% / 0.4;
+
+    --sidebar-background: 220 20% 8%;
+    --sidebar-foreground: 40 20% 96%;
+    --sidebar-primary: 38 40% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 15% 14%;
+    --sidebar-accent-foreground: 40 20% 96%;
+    --sidebar-border: 220 15% 16%;
+    --sidebar-ring: 38 40% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border: 1px solid hsl(var(--glass-border));
+    box-shadow: 0 8px 32px hsl(var(--glass-shadow)),
+                inset 0 1px 0 hsl(0 0% 100% / 0.1);
+  }
+
+  .glass-strong {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(50px) saturate(1.8);
+    -webkit-backdrop-filter: blur(50px) saturate(1.8);
+    border: 1px solid hsl(var(--glass-border));
+    box-shadow: 0 12px 40px hsl(var(--glass-shadow)),
+                inset 0 1px 0 hsl(0 0% 100% / 0.15);
+  }
+
+  .glass-subtle {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid hsl(var(--glass-border));
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-fade-up {
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease forwards;
+  }
+
+  /* Bronze Gradient Buttons */
+  .bronze-gradient {
+    background: linear-gradient(135deg, hsl(30 35% 50%) 0%, hsl(30 40% 40%) 100%);
+  }
+  
+  .bronze-gradient:hover {
+    background: linear-gradient(135deg, hsl(30 40% 55%) 0%, hsl(30 45% 45%) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px hsla(30, 40%, 50%, 0.5);
+  }
+  
+  .bronze-gradient:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px hsla(30, 30%, 45%, 0.3);
+  }
+  
+  /* Dark Bronze Gradient */
+  .dark .bronze-gradient {
+    background: linear-gradient(135deg, hsl(30 35% 50%) 0%, hsl(30 40% 40%) 100%);
+  }
+  
+  .dark .bronze-gradient:hover {
+    background: linear-gradient(135deg, hsl(30 40% 55%) 0%, hsl(30 45% 45%) 100%);
+    box-shadow: 0 8px 25px hsla(30, 40%, 50%, 0.5);
+  }
+  
+  /* Bronze Shining Effect */
+  .bronze-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .bronze-shine::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsla(30, 30%, 100%, 0.3),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+  
+  .bronze-shine:hover::before {
+    left: 100%;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
